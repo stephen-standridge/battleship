@@ -1,0 +1,108 @@
+html, body{
+	margin: 0;
+	padding: 0;
+	background: rgba(160,160,160,1);
+}
+#board{
+	height: 100%;
+	width: 100%;
+}
+.board-container{
+	height: 400px;
+	width: 400px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(230,230,230,1);
+	position: absolute;
+	border: 2px solid rgba(70,70,70,1);
+	border-bottom-width: 4px;
+	border-right-width: 4px;
+	text-align: center;
+	margin: auto;
+}
+.meta-container{
+	text-align: center;
+	position: absolute;
+	margin: auto;
+	bottom: 50px;
+	left: 0;
+	right: 0;
+}
+.message{
+	position: relative;
+	top: 0;
+	margin-bottom: 20px;
+}
+.screen{
+	position: absolute;
+	z-index: 10;
+	height: 70%;
+	width: 80%;
+	padding: 15% 10%;
+}
+.screen.play{
+	z-index: -1;
+}
+.cells{
+
+}
+.cell{
+	cursor: pointer;
+	height: 38px;
+	width: 38px;
+	border: 1px solid black;
+	float: left;
+}
+.cell:hover{
+	background: rgba(255,255,255,1);
+}
+.unknown{
+
+}
+.hit{
+	background: rgba(0,0,0,1);
+}
+.missed{
+	background: rgba(200,200,200,1);
+}
+.cheat{
+	background: rgba(150,150,150,1);
+}
+.screen__text{
+	margin-bottom: 20px;
+}
+.button{
+	float: none;
+	padding: 10px 30px;
+	max-width: 100px;
+	margin: auto;
+	border: 2px solid rgba(0,0,0,1);
+	border-bottom-width: 3px;
+	border-right-width: 3px;
+	background: rgba(255,255,255,1);	
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;	
+}
+
+.button:hover{
+	border-width: 1.5px;
+	cursor: pointer;
+	border-bottom-width: 2px;
+	border-right-width: 2px;
+	padding: 11px 31px;
+	background: rgba(245,245,245,1);	
+}
+.cheat--button{
+	margin-top: 10px;
+	font-size: 8px;
+	cursor: pointer;
+
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
