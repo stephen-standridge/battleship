@@ -8,7 +8,7 @@
     "url": "https://github.com/stephen-standridge/battleship"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/testHelper.js  --recursive",
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register  --recursive",
     "test:watch": "npm run test -- --watch"
   },
   "author": "Stephen Standridge <Stephen@formisfunction.io> (www.formisfunction.io)",
