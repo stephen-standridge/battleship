@@ -2,13 +2,20 @@ import Grid from './Grid.js';
 import { each, map, filter, slice, some, reduce } from 'lodash';
 
 class Battleship extends Grid{
-	constructor(){
-		super( 10, 10 )
+	constructor( size=[], ships ){
+		super( size[0], size[1] )
+		this.ships = ships || [5,4,3,3,2];
 		each( this.ships, this.randomizeShipPlacement.bind(this) )
 		this.total = reduce( this.ships, (a,b)=>{ return a+b }, 0)
 	}
+	get size(){
+		return [10, 10]
+	}
+	set ships( s ){
+		this._ships = s
+	}
 	get ships(){
-		return [5,4,3,3,2];
+		return this._ships;
 	}
 	shoot( index ){
 		if( this.cells[index] == 'ship' ){

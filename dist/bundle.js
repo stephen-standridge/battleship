@@ -68,8 +68,8 @@ var Battleship =
 		return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function initialize() {
-		_reactDom2.default.render(_react2.default.createElement(_Board2.default), document.getElementById('board'));
+	function initialize(sizeArray, shipArray) {
+		_reactDom2.default.render(_react2.default.createElement(_Board2.default, { size: sizeArray, ships: shipArray }), document.getElementById('board'));
 	}
 
 /***/ },
@@ -20415,8 +20415,8 @@ var Battleship =
 			});
 		},
 		newGame: function newGame() {
-			var board1 = new _Battleship2.default();
-			var board2 = new _Battleship2.default();
+			var board1 = new _Battleship2.default(this.props.size, this.props.ships);
+			var board2 = new _Battleship2.default(this.props.size, this.props.ships);
 			this.setState({
 				boards: [board1, board2],
 				player: 0,
@@ -20434,7 +20434,6 @@ var Battleship =
 		},
 		completeTurn: function completeTurn() {
 			this.setState(function (prevState) {
-				console.log(prevState.boards[prevState.player].total);
 				if (prevState.boards[prevState.player].total == 0) {
 					prevState.screen = 'victory';
 					return prevState;
@@ -20581,13 +20580,23 @@ var Battleship =
 			if (this.state.screen !== 'play') {
 				return;
 			}
+			var cells = this.state.boards[this.state.player].cells;
+			var cellSize = 400 / Math.sqrt(cells.length) - 2; //subtract two for border
+			var styles = {
+				width: cellSize + 'px',
+				height: cellSize + 'px'
+			};
 			return _react2.default.createElement(
 				'div',
 				{ className: 'cells' },
-				(0, _lodash.map)(this.state.boards[this.state.player].cells, function (cell, index) {
-					return _react2.default.createElement('div', { className: _this.cellClasses(cell, _this.state.cheat), key: index, onClick: function onClick() {
+				(0, _lodash.map)(cells, function (cell, index) {
+					return _react2.default.createElement('div', {
+						className: _this.cellClasses(cell, _this.state.cheat),
+						key: index,
+						onClick: function onClick() {
 							return _this.shoot(index);
-						} });
+						},
+						style: styles });
 				})
 			);
 		}
@@ -20649,10 +20658,14 @@ var Battleship =
 		_inherits(Battleship, _Grid);
 
 		function Battleship() {
+			var size = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+			var ships = arguments[1];
+
 			_classCallCheck(this, Battleship);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Battleship).call(this, 10, 10));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Battleship).call(this, size[0], size[1]));
 
+			_this.ships = ships || [5, 4, 3, 3, 2];
 			(0, _lodash.each)(_this.ships, _this.randomizeShipPlacement.bind(_this));
 			_this.total = (0, _lodash.reduce)(_this.ships, function (a, b) {
 				return a + b;
@@ -20761,9 +20774,17 @@ var Battleship =
 				});
 			}
 		}, {
-			key: 'ships',
+			key: 'size',
 			get: function get() {
-				return [2];
+				return [10, 10];
+			}
+		}, {
+			key: 'ships',
+			set: function set(s) {
+				this._ships = s;
+			},
+			get: function get() {
+				return this._ships;
 			}
 		}]);
 
@@ -20801,13 +20822,13 @@ var Battleship =
 	}
 
 	var Grid = function () {
-		function Grid(cols, rows) {
+		function Grid(x, y) {
 			_classCallCheck(this, Grid);
 
-			this._colCount = cols;
-			this._rowCount = rows;
+			this._colCount = x ? x : this.size[0];
+			this._rowCount = y ? y : this.size[1];
 			this.cells = [];
-			this.cells.length = cols * rows;
+			this.cells.length = this._colCount * this._rowCount;
 		}
 
 		_createClass(Grid, [{

@@ -4,5 +4,9 @@
 	</head>
 	<div id="board"></div>
 	<script src="./dist/bundle.js"></script>
-	<script> Battleship.initialize() </script>
+	<script> 
+		var boardDimensions = [10,10]
+		var ships = [5,4,3,3,2]
+		Battleship.initialize(boardDimensions, ships) 
+	</script>
 </html>

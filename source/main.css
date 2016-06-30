@@ -50,8 +50,6 @@ html, body{
 }
 .cell{
 	cursor: pointer;
-	height: 38px;
-	width: 38px;
 	border: 1px solid black;
 	float: left;
 }

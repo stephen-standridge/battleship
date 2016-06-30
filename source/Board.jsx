@@ -29,8 +29,8 @@ const Board = React.createClass({
 		})
 	},	
 	newGame(){
-		let board1 = new Battleship()
-		let board2 = new Battleship()
+		let board1 = new Battleship(this.props.size, this.props.ships)
+		let board2 = new Battleship(this.props.size, this.props.ships)
 		this.setState({
 			boards: [ board1, board2 ],
 			player: 0,
@@ -161,10 +161,22 @@ const Board = React.createClass({
 	},
 	renderCells(){
 		if(this.state.screen !== 'play'){ return }
+		let cells = this.state.boards[this.state.player].cells;
+		let cellSize = (400 / Math.sqrt(cells.length) ) -2; //subtract two for border
+		let styles = {
+			width: `${cellSize}px`, 
+			height: `${cellSize}px`,
+		}
 		return(
 			<div className="cells">
-				{map(this.state.boards[this.state.player].cells, ( cell, index )=>{
-					return <div className={this.cellClasses(cell, this.state.cheat)} key={index} onClick={()=> this.shoot(index) }/>
+				{map( cells, ( cell, index )=>{
+					return (
+						<div 
+							className={this.cellClasses(cell, this.state.cheat)} 
+							key={index} 
+							onClick={()=> this.shoot(index) }
+							style={ styles }/>
+					)
 				})}
 			</div>
 		)

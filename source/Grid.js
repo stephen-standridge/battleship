@@ -1,11 +1,11 @@
 import { each, times } from 'lodash'
 
 class Grid {
-	constructor( cols, rows ){
-		this._colCount = cols;
-		this._rowCount = rows;
+	constructor( x, y ){
+		this._colCount = x ? x : this.size[0];
+		this._rowCount = y ? y : this.size[1];
 		this.cells = [];
-		this.cells.length = cols * rows;
+		this.cells.length = this._colCount * this._rowCount;
 	}
 	rowContains( index, row ){
 		let rowIn = index / this._rowCount || 0;
